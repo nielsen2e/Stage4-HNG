@@ -14,8 +14,14 @@ RUN apt-get update \
     && apt-get clean
 
 # add app
-COPY ../app/ .
+COPY ./app/ .
 
 # install python dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements/development.txt
+
+# port where django app runs
+EXPOSE 8000
+
+# start server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
